@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>INP Games — Roblox Game Studio</title>
+  <meta name="description" content="INP Games is an independent studio making games for Roblox.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b0b14;
+      --card: #171728;
+      --border: #26263d;
+      --text: #f2f2f7;
+      --muted: #9a9ab4;
+      --accent: #7c5cff;
+      --accent-2: #00e0b8;
+      --accent-3: #ff4f8b;
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    .container { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 20px; }
+    h1, h2, h3, .logo { font-family: "Unbounded", sans-serif; letter-spacing: -0.02em; }
+
+    /* Header */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+      backdrop-filter: blur(14px);
+      background: rgba(11, 11, 20, 0.7);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
+    .logo { font-weight: 800; font-size: 22px; display: flex; align-items: center; gap: 10px; }
+    .logo-mark {
+      width: 34px; height: 34px; border-radius: 9px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-3));
+      transform: rotate(12deg);
+    }
+    .nav-links { display: flex; gap: 32px; font-weight: 500; color: var(--muted); }
+    .nav-links a:hover { color: var(--text); }
+
+    /* Hero */
+    .hero { position: relative; min-height: 100vh; display: flex; align-items: center; text-align: center; padding: 120px 0 80px; }
+    .hero::before, .hero::after {
+      content: ""; position: absolute; border-radius: 50%; filter: blur(110px); z-index: -1;
+    }
+    .hero::before { width: 520px; height: 520px; background: rgba(124, 92, 255, .35); top: 80px; left: -140px; }
+    .hero::after { width: 460px; height: 460px; background: rgba(0, 224, 184, .2); bottom: 40px; right: -140px; }
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 16px; border-radius: 999px;
+      background: var(--card); border: 1px solid var(--border);
+      font-size: 14px; color: var(--muted); margin-bottom: 28px;
+    }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-2); box-shadow: 0 0 12px var(--accent-2); }
+    .hero h1 { font-size: clamp(40px, 7vw, 80px); line-height: 1.05; font-weight: 800; margin-bottom: 24px; }
+    .gradient {
+      background: linear-gradient(90deg, var(--accent), var(--accent-3), var(--accent-2));
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+    }
+    .hero p { font-size: clamp(17px, 2vw, 20px); color: var(--muted); max-width: 600px; margin: 0 auto; }
+
+    /* Sections */
+    section { padding: 100px 0; }
+    .section-head { text-align: center; margin-bottom: 56px; }
+    .eyebrow { color: var(--accent-2); font-weight: 600; font-size: 14px; text-transform: uppercase; letter-spacing: .12em; }
+    .section-head h2 { font-size: clamp(30px, 4.5vw, 46px); margin-top: 10px; }
+
+    /* What we do */
+    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    .card {
+      padding: 32px 28px; border-radius: var(--radius);
+      background: var(--card); border: 1px solid var(--border);
+      transition: transform .25s, border-color .25s;
+    }
+    .card:hover { transform: translateY(-4px); border-color: var(--accent); }
+    .card-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: grid; place-items: center; font-size: 24px;
+      background: rgba(124, 92, 255, .15); margin-bottom: 20px;
+    }
+    .card h3 { font-size: 18px; margin-bottom: 10px; }
+    .card p { color: var(--muted); font-size: 15px; }
+
+    /* About */
+    .about { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about h2 { font-size: clamp(30px, 4vw, 42px); margin: 10px 0 20px; }
+    .about p { color: var(--muted); margin-bottom: 16px; }
+    .blocks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 420px; margin: 0 auto; width: 100%; }
+    .block { aspect-ratio: 1; border-radius: 18px; animation: float 6s ease-in-out infinite; }
+    .block:nth-child(1) { background: var(--accent); }
+    .block:nth-child(2) { background: var(--card); border: 1px solid var(--border); animation-delay: -1s; }
+    .block:nth-child(3) { background: var(--accent-3); animation-delay: -2s; }
+    .block:nth-child(4) { background: var(--card); border: 1px solid var(--border); animation-delay: -3s; }
+    .block:nth-child(5) { background: var(--accent-2); animation-delay: -4s; }
+    .block:nth-child(6) { background: var(--card); border: 1px solid var(--border); animation-delay: -5s; }
+    .block:nth-child(7) { background: #ffb341; animation-delay: -2.5s; }
+    .block:nth-child(8) { background: var(--card); border: 1px solid var(--border); animation-delay: -1.5s; }
+    .block:nth-child(9) { background: linear-gradient(135deg, var(--accent), var(--accent-2)); animation-delay: -3.5s; }
+    @keyframes float {
+      0%, 100% { transform: translateY(0) rotate(0); }
+      50% { transform: translateY(-10px) rotate(3deg); }
+    }
+
+    /* Coming soon */
+    .soon {
+      text-align: center; padding: 70px 30px; border-radius: 28px;
+      background: linear-gradient(135deg, #2a1d6b, #3a1240 60%, #0d3b3a);
+      border: 1px solid var(--border);
+    }
+    .soon h2 { font-size: clamp(28px, 4vw, 44px); margin-bottom: 16px; }
+    .soon p { color: #c9c9e0; max-width: 520px; margin: 0 auto; }
+
+    /* Footer */
+    footer { padding: 40px 0; border-top: 1px solid var(--border); color: var(--muted); font-size: 14px; }
+    .footer-inner { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; }
+
+    @media (max-width: 900px) {
+      .cards { grid-template-columns: 1fr; }
+      .about { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      section { padding: 70px 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo"><div class="logo-mark"></div>INP Games</a>
+      <nav class="nav-links">
+        <a href="#what-we-do">What we do</a>
+        <a href="#about">About</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container">
+        <div class="badge"><span class="dot"></span>Roblox game studio</div>
+        <h1>We build worlds<br>players <span class="gradient">love to explore</span></h1>
+        <p>INP Games is a new independent studio creating fun, colorful and engaging experiences on Roblox.</p>
+      </div>
+    </section>
+
+    <section id="what-we-do">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">What we do</span>
+          <h2>Games, made with care</h2>
+        </div>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">🎮</div>
+            <h3>Game design</h3>
+            <p>Simple ideas, satisfying mechanics and gameplay that keeps you coming back.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">💻</div>
+            <h3>Development</h3>
+            <p>Clean, reliable Luau code built in Roblox Studio.</p>
+          </div>
+          <div class="card">
+            <div class="card-icon">🎨</div>
+            <h3>Art &amp; UI</h3>
+            <p>Bright worlds, playful models and clear, friendly interfaces.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="container about">
+        <div>
+          <span class="eyebrow">About us</span>
+          <h2>A small team of players</h2>
+          <p>We started INP Games because we love Roblox and the creativity of its community.</p>
+          <p>Our goal is simple: make games we would enjoy playing ourselves — and share them with the world.</p>
+        </div>
+        <div class="blocks" aria-hidden="true">
+          <div class="block"></div><div class="block"></div><div class="block"></div>
+          <div class="block"></div><div class="block"></div><div class="block"></div>
+          <div class="block"></div><div class="block"></div><div class="block"></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="soon">
+          <h2>Our first game is coming soon</h2>
+          <p>We're hard at work on something new. Stay tuned!</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <span class="logo">INP Games</span>
+      <span>© 2026 INP Games. All rights reserved.</span>
+    </div>
+  </footer>
+
+</body>
+</html>
